@@ -10,5 +10,6 @@ dist/
 .chainlit/
 .files/
 build/
+.claude/skills/
 .DS_Store
 
