@@ -1,40 +1,10 @@
-[server]
-runOnSave = true
+[theme]
+base = "dark"
+primaryColor = "#8B5CF6"
+backgroundColor = "#06070B"
+secondaryBackgroundColor = "#10121A"
+textColor = "#E2E8F0"
+font = "sans serif"
 
-[theme.dark]
-primaryColor = "#a855f7"
-backgroundColor = "#0e1117"
-secondaryBackgroundColor = "#1a1c23"
-textColor = "#ffffff"
-font = "Outfit:https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-borderColor = "#374151"
-showWidgetBorder = true
-showSidebarBorder = true
-baseRadius = "8px"
-buttonRadius = "8px"
-headingFontSizes = ["32px", "24px", "20px", "16px", "14px", "12px"]
-
-[theme.dark.sidebar]
-backgroundColor = "#06070a"
-secondaryBackgroundColor = "#131722"
-textColor = "#d1d5db"
-borderColor = "#1f2937"
-
-[theme.light]
-primaryColor = "#9333ea"
-backgroundColor = "#ffffff"
-secondaryBackgroundColor = "#f3f4f6"
-textColor = "#111827"
-font = "Outfit:https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-borderColor = "#e5e7eb"
-showWidgetBorder = true
-showSidebarBorder = true
-baseRadius = "8px"
-buttonRadius = "8px"
-headingFontSizes = ["32px", "24px", "20px", "16px", "14px", "12px"]
-
-[theme.light.sidebar]
-backgroundColor = "#f9fafb"
-secondaryBackgroundColor = "#e5e7eb"
-textColor = "#374151"
-borderColor = "#d1d5db"
+[client]
+toolbarMode = "minimal"

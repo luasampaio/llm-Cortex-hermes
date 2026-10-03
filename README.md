@@ -1,109 +1,135 @@
-# 🤖 llm-Cortex-hermes
+# 🤖 Hermes AI Assistant
 
-> 🚀 **Desenvolvido por Luciana Sampaio**
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" />
+  <img src="https://img.shields.io/badge/Ollama-100%25%20Local-black?style=for-the-badge" alt="Ollama" />
+</p>
 
-Este repositório contém a implementação do **Hermes**, um agente assistente virtual inteligente e amigável configurado para rodar de forma **100% local** em sua máquina utilizando o **Ollama** e o framework **LangChain**.
+> 🚀 **Desenvolvido por [Luciana Sampaio](https://www.linkedin.com/in/luciana-sampaio/)** &nbsp;|&nbsp; ✍️ **[Medium](https://medium.com/@luciana.sampaio84)**
 
+O **Hermes** é um assistente virtual inteligente, seguro e de alta performance configurado para rodar de forma **100% local e privada** no seu computador utilizando **Ollama** e **LangChain**.
 
-O projeto oferece três interfaces diferentes para interação com o agente:
-1. **Interface CLI (Terminal):** Um script simples que envia solicitações via requisições HTTP REST diretamente para a API local do Ollama.
-2. **Interface Streamlit (Web UI):** Uma interface gráfica web dinâmica com suporte a histórico de conversação mantido em sessão.
-3. **Interface Chainlit (Chat App profissional):** Uma interface conversacional moderna de alto nível com suporte a **streaming de tokens em tempo real** (resposta gerada palavra por palavra) e gerenciamento avançado de histórico através das abstrações do LangChain.
+O projeto conta com uma interface web de design limpo inspirada nas melhores aplicações de IA do mercado (ChatGPT, Claude), com streaming de respostas, gerenciamento de modelos e ferramentas de produtividade.
 
 ---
 
-## 📂 Estrutura do Projeto
+## ✨ Principais Funcionalidades
 
-O diretório principal está estruturado da seguinte forma:
+### 🖥️ Interface Web Streamlit (Hermes Studio)
+- **Design Moderno:** Tema escuro com tipografia Google Outfit, microanimações e contraste aprimorado.
+- **Detecção Automática do Ollama:** Monitora a conexão do Ollama local em tempo real com status visual pulsante.
+- **Seletor de Modelos em Tempo Real:** Detecta automaticamente todos os modelos instalados no seu Ollama (`openhermes`, `llama3`, `mistral`, etc.) permitindo alterná-los na barra superior ou nas configurações.
+- **Cards Interativos de Início Rápido:** Sugestões selecionáveis na tela inicial para desenvolvimento, engenharia de dados, IA e análise de documentos.
+- **Unidades de Trabalho Interativas em Cada Resposta:**
+  - 📋 **Copiar resposta ou código:** Copie o texto ou código formatado com um clique no bloco nativo.
+  - ✏️ **Editar e reenviar pergunta:** Altere perguntas anteriores mantendo o histórico consistente.
+  - 🔄 **Regenerar com outro modelo:** Compare respostas entre diferentes modelos do Ollama para a mesma pergunta.
+  - 👍 **Feedback de respostas:** Avalie a precisão das respostas com sistema de aprovação/reprovação.
+  - 📄 **Exportar documento:** Baixe qualquer resposta diretamente em Markdown (`.md`) ou Texto (`.txt`).
+  - 📝 **Caderno de Notas:** Salve insights e respostas diretamente no seu caderno pessoal na barra lateral.
 
-*   [`agent_hermes.py`](./agent_hermes.py): Script Python para interação com o Ollama através do terminal utilizando a biblioteca `requests`.
-*   [`app.py`](./app.py): Aplicação web interativa construída com **Streamlit** e `ChatOllama` do LangChain.
-*   [`chainlit_app.py`](./chainlit_app.py): Aplicação conversacional avançada construída com **Chainlit**, suportando streaming de respostas e histórico de mensagens.
-*   [`chainlit.md`](./chainlit.md): Tela de boas-vindas exibida na interface do Chainlit.
+### 💬 Outras Interfaces
+- **Chainlit App:** Interface conversacional com streaming contínuo palavra por palavra e histórico estruturado.
+- **Terminal CLI:** Script Python para testes diretos via terminal via API REST do Ollama.
 
+---
+
+## 📂 Estrutura do Repositório
+
+```text
+llm-Cortex-hermes/
+├── app.py                 # Interface principal web em Streamlit
+├── chainlit_app.py        # Interface de chat conversacional em Chainlit
+├── agent_hermes.py        # Interface CLI via terminal (requests)
+├── chainlit.md            # Mensagem de apresentação do Chainlit
+├── .streamlit/
+│   └── config.toml        # Configuração de tema escuro e comportamento
+├── Passo a Passo.md       # Guia complementar de execução
+└── README.md              # Documentação oficial do projeto
+```
 
 ---
 
 ## 🛠️ Pré-requisitos
 
-Para rodar o projeto localmente, você precisará ter instalado em sua máquina:
-
-1.  **Python 3.9+** (recomendado usar ambiente virtual `.venv`).
-2.  **Ollama**:
-    *   Baixe e instale a partir do site oficial: [ollama.com](https://ollama.com).
-    *   Com o Ollama rodando no seu sistema, baixe o modelo desejado (o padrão configurado é o `openhermes`, mas você pode alterar para o que preferir, como `llama3`, `mistral`, `gemma`, etc.):
-        ```bash
-        ollama pull openhermes
-        ```
+1. **Python 3.9+** instalado.
+2. **Ollama instalado e em execução**:
+   - Baixe no site oficial: [ollama.com](https://ollama.com).
+   - Baixe os modelos que deseja utilizar no seu terminal:
+     ```bash
+     ollama pull openhermes
+     ollama pull llama3
+     ```
 
 ---
 
-## 🚀 Instalação e Configuração
+## 🚀 Como Executar
 
-### 1. Clonar o repositório e acessar a pasta
+### 1. Clonar o repositório e entrar na pasta
 ```bash
+git clone https://github.com/luasampaio/llm-Cortex-hermes.git
 cd llm-Cortex-hermes
 ```
 
-### 2. Configurar o Ambiente Virtual
-Crie e ative um ambiente virtual do Python:
+### 2. Criar e ativar o ambiente virtual
 
-**No Windows (PowerShell):**
+**Windows (PowerShell):**
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
-**No Linux/macOS:**
+**Linux / macOS:**
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Instalar as Dependências
-Instale os pacotes necessários rodando o seguinte comando:
+### 3. Instalar as dependências
 ```bash
 pip install requests streamlit chainlit langchain-ollama langchain-core langchain-community
 ```
 
----
+### 4. Executar as Aplicações
 
-## 💻 Como Executar
+#### 🌐 Opção A: Interface Web Streamlit (Principal)
+```bash
+streamlit run app.py
+```
+> Acesse no seu navegador em `http://localhost:8501`.
 
-Certifique-se de que o **Ollama** esteja em execução em segundo plano antes de iniciar qualquer uma das interfaces.
+#### 💬 Opção B: Interface Chainlit
+```bash
+chainlit run chainlit_app.py -w
+```
+> Acesse em `http://localhost:8000`.
 
-### Opção A: Executar a CLI (Linha de Comando)
-Uma interação simples direto no seu terminal:
+#### 💻 Opção C: Terminal CLI
 ```bash
 python agent_hermes.py
 ```
 
-### Opção B: Executar a Interface Streamlit
-Para abrir o painel web interativo no seu navegador:
-```bash
-streamlit run app.py
-```
-*   **Nota:** Na barra lateral da interface do Streamlit, você pode alterar dinamicamente o nome do modelo que deseja utilizar e limpar o histórico da conversa.
+---
 
-### Opção C: Executar a Interface Chainlit (Recomendado)
-Para rodar a interface de chat premium com streaming de tokens em tempo real:
-```bash
-chainlit run chainlit_app.py -w
-```
-*   O parâmetro `-w` ativa o *auto-reload* (recarregamento automático) ao fazer alterações no código.
+## ⚙️ Configurações e Modelos
+
+- O modelo ativo pode ser alterado diretamente pela **Barra Superior** ou no menu **Configurações** na barra lateral.
+- Para adicionar novos modelos ao Ollama para uso no Hermes:
+  ```bash
+  ollama run deepseek-r1:8b
+  ollama run mistral
+  ollama run qwen2.5:7b
+  ```
+- O Hermes detectará automaticamente os novos modelos instalados na próxima execução ou atualização de página.
 
 ---
 
-## ⚙️ Personalização
+## 👩‍💻 Autoria e Contato
 
-Se você quiser trocar o modelo padrão ou ajustar as instruções de comportamento do sistema, altere os arquivos:
-*   **Em `chainlit_app.py`:** Altere o argumento `model="openhermes"` na linha 11 e mude o prompt do sistema na linha 15 (`"Você é o Hermes..."`).
-*   **Em `app.py`:** Altere o valor padrão de `model_name` no input da barra lateral ou o parâmetro `temperature` no método `get_llm()`.
-*   **Em `agent_hermes.py`:** Altere o parâmetro `model` na chamada da função principal.
+Desenvolvido por **Luciana Sampaio**.
 
----
-
-<p align="center">
-  <sub>Desenvolvido com 🧠 e 💻 por <b>Luciana Sampaio</b>.</sub>
-</p>
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/luciana-sampaio/)
+[![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@luciana.sampaio84)
 

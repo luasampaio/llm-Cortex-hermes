@@ -1,13 +1,13 @@
-import requests
 import json
-<<<<<<< HEAD
-import sys
+import requests
+
 
 class HermesAgent:
     """
     Agente Hermes para interagir com modelos locais via Ollama.
     Mantém histórico de conversas e suporta streaming de respostas.
     """
+
     def __init__(self, model="openhermes", host="http://localhost:11434"):
         self.model = model
         self.host = host
@@ -28,68 +28,66 @@ class HermesAgent:
         Por padrão, faz o streaming da resposta no terminal.
         """
         self.history.append({"role": "user", "content": user_message})
-        
+
         payload = {
             "model": self.model,
             "messages": self.history,
-            "stream": stream
+            "stream": stream,
         }
-        
+
         headers = {"Content-Type": "application/json"}
-        
         full_response = ""
-        
+
         try:
             if stream:
                 response = requests.post(self.url, json=payload, headers=headers, stream=True)
                 response.raise_for_status()
-                
+
                 print("Hermes: ", end="", flush=True)
                 for line in response.iter_lines():
-                    if line:
-                        chunk = json.loads(line.decode("utf-8"))
-                        message_chunk = chunk.get("message", {}).get("content", "")
-                        print(message_chunk, end="", flush=True)
-                        full_response += message_chunk
-                        
-                        if chunk.get("done"):
-                            break
-                print() # Quebra de linha no final do streaming
+                    if not line:
+                        continue
+                    chunk = json.loads(line.decode("utf-8"))
+                    message_chunk = chunk.get("message", {}).get("content", "")
+                    print(message_chunk, end="", flush=True)
+                    full_response += message_chunk
+
+                    if chunk.get("done"):
+                        break
+                print()
             else:
                 response = requests.post(self.url, json=payload, headers=headers)
                 response.raise_for_status()
-                
+
                 result = response.json()
                 full_response = result.get("message", {}).get("content", "")
                 print(f"Hermes: {full_response}")
-                
-            # Adicionar a resposta final ao histórico
+
             self.history.append({"role": "assistant", "content": full_response})
             return full_response
-            
+
         except requests.exceptions.RequestException as e:
             print(f"\n[Erro ao conectar com Ollama]: {e}")
             print("Certifique-se de que o Ollama está rodando e o modelo especificado está instalado.")
-            self.history.pop() # Remove a mensagem do usuário já que falhou
+            self.history.pop()
             return None
 
+
 if __name__ == "__main__":
-    # IMPORTANTE: Altere 'openhermes' para o nome exato do modelo que você baixou no Ollama
-    # Exemplos comuns: 'openhermes', 'nous-hermes2', 'llama3', etc.
     agent = HermesAgent(model="openhermes")
-    
+
     print(f"Iniciando conexão com Hermes Agent (Ollama Local - Modelo: {agent.model})...")
     print("Digite 'sair' ou 'quit' para encerrar a conversa.\n")
-    
+
     while True:
         try:
             user_input = input("Você: ")
-            if user_input.lower() in ['sair', 'quit', 'exit']:
+            if user_input.lower() in ["sair", "quit", "exit"]:
                 break
-                
+
             if not user_input.strip():
                 continue
-                
+
             agent.chat(user_input)
             print("-" * 50)
         except KeyboardInterrupt:
@@ -97,49 +95,3 @@ if __name__ == "__main__":
             break
         except EOFError:
             break
-=======
-
-def chat_with_hermes(prompt, model="openhermes"):
-    """
-    Função para enviar um prompt para o modelo Hermes rodando localmente via Ollama.
-    A porta padrão do Ollama é 11434.
-    """
-    url = "http://localhost:11434/api/generate"
-    
-    payload = {
-        "model": model,
-        "prompt": prompt,
-        "stream": False
-    }
-    
-    headers = {
-        "Content-Type": "application/json"
-    }
-    
-    try:
-        response = requests.post(url, data=json.dumps(payload), headers=headers)
-        response.raise_for_status()
-        
-        result = response.json()
-        return result.get("response", "")
-        
-    except requests.exceptions.RequestException as e:
-        print(f"Erro ao conectar com Ollama: {e}")
-        print("Certifique-se de que o Ollama está rodando e o modelo especificado está instalado.")
-        return None
-
-if __name__ == "__main__":
-    print("Iniciando conexão com Hermes Agent (Ollama Local)...")
-    
-    # Teste simples de conexão
-    user_prompt = "Olá! Descreva brevemente quem é você."
-    print(f"\nUser: {user_prompt}")
-    
-    # IMPORTANTE: Altere 'openhermes' para o nome exato do modelo que você baixou no Ollama
-    # Exemplos comuns: 'openhermes', 'nous-hermes2', 'hermes2-pro', etc.
-    resposta = chat_with_hermes(user_prompt, model="openhermes")
-    
-    if resposta:
-        print("\nHermes:")
-        print(resposta)
->>>>>>> 178103b479c28cfff51b213af005eeba9116238d
